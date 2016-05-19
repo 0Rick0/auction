@@ -52,8 +52,4 @@ public class RegistrationJPAMgr {
     public List<User> getUsers() {
         return userDAO.findAll();
     }
-
-    public void deleteUsers(){
-        ((UserDAOJPAImpl)userDAO).deleteAll();
-    }
 }

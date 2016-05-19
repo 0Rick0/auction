@@ -1,6 +1,7 @@
 package auction.service;
 
 import auction.domain.User;
+import nl.fontys.util.FontysTime;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +21,7 @@ public class RegistrationJPAMgrTest {
 
     @After
     public void after(){
-        registrationMgr.deleteUsers();
+
     }
 
     @Test
@@ -47,19 +48,20 @@ public class RegistrationJPAMgrTest {
 
     @Test
     public void getUsers() {
-        registrationMgr.deleteUsers();
         int initsize;
+        String eml1 = FontysTime.now().toString() + "xxx8@yyy";
+        String eml2 = FontysTime.now().toString() + "xxx9@yyy";
         List<User> users = registrationMgr.getUsers();
         initsize = users.size();
         assertEquals(initsize, users.size());
 
-        User user1 = registrationMgr.registerUser("xxx8@yyy");
+        User user1 = registrationMgr.registerUser(eml1);//make it unique
         users = registrationMgr.getUsers();
         assertEquals(initsize+1, users.size());
         assertEquals(users.get(initsize), user1);
 
 
-        User user2 = registrationMgr.registerUser("xxx9@yyy");
+        User user2 = registrationMgr.registerUser(eml2);
         users = registrationMgr.getUsers();
         assertEquals(initsize+2, users.size());
 

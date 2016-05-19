@@ -2,13 +2,30 @@ package auction.domain;
 
 import nl.fontys.util.Money;
 
+import javax.persistence.*;
+
+@Entity
+@NamedQueries({
+        @NamedQuery(name = "Item.Count",            query = "SELECT COUNT(i) FROM Item i"),
+        @NamedQuery(name = "Item.All",              query = "SELECT i FROM Item i"),
+        @NamedQuery(name = "Item.FindId",           query = "SELECT i FROM Item i WHERE i.id = :id"),
+        @NamedQuery(name = "Item.ByDescription",    query = "SELECT i FROM Item i WHERE i.description LIKE :desc"),
+        @NamedQuery(name = "Item.DeleteId",         query = "DELETE FROM Item i WHERE i.id = :id")
+})
 public class Item implements Comparable {
 
+    @Id
+    @GeneratedValue
     private Long id;
+    @ManyToOne
     private User seller;
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Category category;
     private String description;
+    @OneToOne
     private Bid highest;
+
+    public Item(){}
 
     public Item(User seller, Category category, String description) {
         this.seller = seller;
@@ -57,5 +74,9 @@ public class Item implements Comparable {
     public int hashCode() {
         //TODO
         return 0;
+    }
+
+    public void setHighestBid(Bid highestBid) {
+        this.highest = highestBid;
     }
 }

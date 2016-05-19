@@ -16,12 +16,12 @@ import auction.domain.User;
 public class SellerMgrTest {
 
     private AuctionMgr auctionMgr;
-    private RegistrationMgr registrationMgr;
+    private RegistrationJPAMgr registrationMgr;
     private SellerMgr sellerMgr;
 
     @Before
     public void setUp() throws Exception {
-        registrationMgr = new RegistrationMgr();
+        registrationMgr = new RegistrationJPAMgr();
         auctionMgr = new AuctionMgr();
         sellerMgr = new SellerMgr();
     }
@@ -47,6 +47,7 @@ public class SellerMgrTest {
     public void testRevokeItem() {
         String omsch = "omsch";
         String omsch2 = "omsch2";
+        int init = auctionMgr.findItemByDescription(omsch).size();
         
     
         User seller = registrationMgr.registerUser("sel@nl");
@@ -58,7 +59,7 @@ public class SellerMgrTest {
         boolean res = sellerMgr.revokeItem(item1);
         assertTrue(res);
         int count = auctionMgr.findItemByDescription(omsch).size();
-        assertEquals(0, count);
+        assertEquals(init, count);
         
             // revoke after bid has been made
         Item item2 = sellerMgr.offerItem(seller, cat, omsch2);

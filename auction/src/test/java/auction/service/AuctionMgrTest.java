@@ -12,16 +12,17 @@ import auction.domain.Category;
 import auction.domain.Item;
 import auction.domain.User;
 import java.util.ArrayList;
+import java.util.List;
 
 public class AuctionMgrTest {
 
     private AuctionMgr auctionMgr;
-    private RegistrationMgr registrationMgr;
+    private RegistrationJPAMgr registrationMgr;
     private SellerMgr sellerMgr;
 
     @Before
     public void setUp() throws Exception {
-        registrationMgr = new RegistrationMgr();
+        registrationMgr = new RegistrationJPAMgr();
         auctionMgr = new AuctionMgr();
         sellerMgr = new SellerMgr();
     }
@@ -47,17 +48,20 @@ public class AuctionMgrTest {
         String email4 = "xx4@nl";
         String omsch2 = "omsch2";
 
+        int org1 = auctionMgr.findItemByDescription(omsch).size();
+        int org2 = auctionMgr.findItemByDescription(omsch2).size();
+
         User seller3 = registrationMgr.registerUser(email3);
         User seller4 = registrationMgr.registerUser(email4);
         Category cat = new Category("cat3");
         Item item1 = sellerMgr.offerItem(seller3, cat, omsch);
         Item item2 = sellerMgr.offerItem(seller4, cat, omsch);
 
-        ArrayList<Item> res = (ArrayList<Item>) auctionMgr.findItemByDescription(omsch2);
-        assertEquals(0, res.size());
+        List<Item> res = auctionMgr.findItemByDescription(omsch2);
+        assertEquals(org2, res.size());
 
-        res = (ArrayList<Item>) auctionMgr.findItemByDescription(omsch);
-        assertEquals(2, res.size());
+        res =  auctionMgr.findItemByDescription(omsch);
+        assertEquals(org1 + 2, res.size());
 
     }
 
