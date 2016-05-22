@@ -39,11 +39,15 @@ public class AuctionMgr  {
      *         amount niet hoger was dan het laatste bod, dan null
      */
     public Bid newBid(Item item, User buyer, Money amount) {
+        //get an up-to-date version of the item
         Item nitem = itemDAO.find(item.getId());
+        //if the item is not found or there is a higher bid, null is returned
         if(nitem == null || (nitem.getHighestBid()!=null && nitem.getHighestBid().getAmount().compareTo(amount)>0))
                 return null;
+        //a new bid is created
         Bid newBid = new Bid(buyer,amount);
         nitem.setHighestBid(newBid);
+        //the edited item is persisted
         itemDAO.edit(nitem);
         return newBid;
     }

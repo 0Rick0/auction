@@ -17,12 +17,16 @@ public class Item implements Comparable {
     @Id
     @GeneratedValue
     private Long id;
+    //users can have multiple items for sale but an item can only have one user
     @ManyToOne
     private User seller;
+    //A category can have multiple items bat an item can only have one category
+    //A category is never persisted so it is cascaded by Item
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Category category;
     private String description;
     @OneToOne
+    //A bid can only have one Item and an item can only have one highest bid.
     private Bid highest;
 
     public Item(){}

@@ -8,6 +8,7 @@ import javax.persistence.Id;
 @Entity
 public class Category {
 
+    //when multiple categories are persisted, errors occur when using a table. using the identity it get the id automaticaly from the tabel.
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

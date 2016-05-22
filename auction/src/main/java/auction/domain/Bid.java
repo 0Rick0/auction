@@ -11,10 +11,13 @@ public class Bid {
     @Id
     @GeneratedValue
     private int id;
+    //FontysTime is an simple type(only time in seconds) so it is embedded
     @Embedded
     private FontysTime time;
+    //A user can have multiple bids but a bid can only have one user
     @ManyToOne
     private User buyer;
+    //Money is a simple type(only amount and currency) so it is embedded
     @Embedded
     private Money amount;
 

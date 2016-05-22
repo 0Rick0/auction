@@ -60,14 +60,16 @@ public class SellerMgrTest {
         assertTrue(res);
         int count = auctionMgr.findItemByDescription(omsch).size();
         assertEquals(init, count);
-        
+
+        init = auctionMgr.findItemByDescription(omsch2).size();
+
             // revoke after bid has been made
         Item item2 = sellerMgr.offerItem(seller, cat, omsch2);
         auctionMgr.newBid(item2, buyer, new Money(100, "Euro"));
         boolean res2 = sellerMgr.revokeItem(item2);
         assertFalse(res2);
         int count2 = auctionMgr.findItemByDescription(omsch2).size();
-        assertEquals(1, count2);
+        assertEquals(init + 1, count2);
         
         
         
