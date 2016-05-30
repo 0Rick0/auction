@@ -18,7 +18,7 @@ public class Item implements Comparable {
     @GeneratedValue
     private Long id;
     //users can have multiple items for sale but an item can only have one user
-    @ManyToOne
+    @ManyToOne(cascade={CascadeType.REMOVE})
     private User seller;
     //A category can have multiple items bat an item can only have one category
     //A category is never persisted so it is cascaded by Item
@@ -35,6 +35,7 @@ public class Item implements Comparable {
         this.seller = seller;
         this.category = category;
         this.description = description;
+        seller.addItem(this);
     }
 
     public Long getId() {
@@ -63,6 +64,10 @@ public class Item implements Comparable {
         }
         highest = new Bid(buyer, amount);
         return highest;
+    }
+
+    public void setSeller(User seller){
+        this.seller=seller;
     }
 
     public int compareTo(Object arg0) {

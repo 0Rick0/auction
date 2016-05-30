@@ -1,6 +1,7 @@
 package auction.dao;
 
 import auction.domain.Item;
+import auction.domain.User;
 
 import javax.persistence.*;
 import java.util.List;
@@ -25,6 +26,7 @@ public class ItemDAOJPAImpl implements ItemDAO {
     public void create(Item item) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
+        item.setSeller(em.find(User.class,item.getSeller().getId()));
         em.persist(item);
         em.getTransaction().commit();
     }

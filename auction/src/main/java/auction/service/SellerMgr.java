@@ -3,6 +3,7 @@ package auction.service;
 import auction.dao.ItemDAO;
 import auction.dao.ItemDAOJPAImpl;
 import auction.dao.UserDAO;
+import auction.dao.UserDAOJPAImpl;
 import auction.domain.Category;
 import auction.domain.Item;
 import auction.domain.User;
@@ -10,6 +11,7 @@ import auction.domain.User;
 public class SellerMgr {
 
     private ItemDAO itemDAO = new ItemDAOJPAImpl();
+    private UserDAO userDAO = new UserDAOJPAImpl();
 
     /**
      * @param seller
@@ -22,6 +24,7 @@ public class SellerMgr {
         //create a new item
         Item item = new Item(seller,cat,description);
         itemDAO.create(item);
+        userDAO.edit(seller);
         return item;
     }
     
@@ -35,6 +38,9 @@ public class SellerMgr {
         Item fitem = itemDAO.find(item.getId());
         if(fitem==null || fitem.getHighestBid() != null)
             return false;
+
+        item.getSeller().removeItem(item);
+        userDAO.edit(item.getSeller());
 
         //remove the item
         itemDAO.remove(fitem);
