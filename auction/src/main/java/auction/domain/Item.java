@@ -3,6 +3,7 @@ package auction.domain;
 import nl.fontys.util.Money;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @NamedQueries({
@@ -25,7 +26,7 @@ public class Item implements Comparable {
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Category category;
     private String description;
-    @OneToOne
+    @OneToOne(mappedBy = "item", cascade = CascadeType.ALL)
     //A bid can only have one Item and an item can only have one highest bid.
     private Bid highest;
 
@@ -58,31 +59,32 @@ public class Item implements Comparable {
         return highest;
     }
 
-    public Bid newBid(User buyer, Money amount) {
-        if (highest != null && highest.getAmount().compareTo(amount) >= 0) {
-            return null;
-        }
-        highest = new Bid(buyer, amount);
-        return highest;
-    }
+//    public Bid newBid(User buyer, Money amount) {
+//        if (highest != null && highest.getAmount().compareTo(amount) >= 0) {
+//            return null;
+//        }
+//        highest = new Bid(buyer, amount);
+//        return highest;
+//    }
 
     public void setSeller(User seller){
         this.seller=seller;
     }
 
     public int compareTo(Object arg0) {
-        //TODO
         return -1;
     }
 
     public boolean equals(Object o) {
-        //TODO
-        return false;
+        if(!(o instanceof Item))
+            return false;
+        Item oi = (Item)o;
+        return Objects.equals(oi.getId(), id);//if id is not the same, the object is not the same
     }
 
     public int hashCode() {
-        //TODO
-        return 0;
+        if(id == null) return 0;
+        return id.intValue();
     }
 
     public void setHighestBid(Bid highestBid) {

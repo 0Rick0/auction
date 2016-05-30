@@ -45,7 +45,7 @@ public class AuctionMgr  {
         if(nitem == null || (nitem.getHighestBid()!=null && nitem.getHighestBid().getAmount().compareTo(amount)>0))
                 return null;
         //a new bid is created
-        Bid newBid = new Bid(buyer,amount);
+        Bid newBid = new Bid(buyer,amount,item);
         nitem.setHighestBid(newBid);
         //the edited item is persisted
         itemDAO.edit(nitem);
