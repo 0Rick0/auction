@@ -13,6 +13,7 @@ import java.util.Objects;
         @NamedQuery(name = "Item.ByDescription",    query = "SELECT i FROM Item i WHERE i.description LIKE :desc"),
         @NamedQuery(name = "Item.DeleteId",         query = "DELETE FROM Item i WHERE i.id = :id")
 })
+@Inheritance (strategy = InheritanceType.JOINED)
 public class Item implements Comparable {
 
     @Id

@@ -46,9 +46,9 @@ public class AuctionMgr  {
                 return null;
         //a new bid is created
         Bid newBid = new Bid(buyer,amount,item);
-        nitem.setHighestBid(newBid);
+        item.setHighestBid(newBid);
         //the edited item is persisted
-        itemDAO.edit(nitem);
+        itemDAO.edit(item);
         return newBid;
     }
 }

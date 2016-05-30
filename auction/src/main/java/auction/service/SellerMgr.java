@@ -4,9 +4,7 @@ import auction.dao.ItemDAO;
 import auction.dao.ItemDAOJPAImpl;
 import auction.dao.UserDAO;
 import auction.dao.UserDAOJPAImpl;
-import auction.domain.Category;
-import auction.domain.Item;
-import auction.domain.User;
+import auction.domain.*;
 
 public class SellerMgr {
 
@@ -45,5 +43,21 @@ public class SellerMgr {
         //remove the item
         itemDAO.remove(fitem);
         return true;
+    }
+
+    public Item offerFurniture(User seller, Category cat, String description, String material) {
+        //create a new item
+        Item item = new Furniture(seller,cat,description,material);
+        itemDAO.create(item);
+        userDAO.edit(seller);
+        return item;
+    }
+
+    public Item offerPainting(User seller, Category cat, String description, String title, String painter) {
+        //create a new item
+        Item item = new Painting(seller,cat,description,title,painter);
+        itemDAO.create(item);
+        userDAO.edit(seller);
+        return item;
     }
 }

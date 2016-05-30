@@ -53,4 +53,12 @@ public class Bid {
     public String toString() {
         return ""+id;
     }
+
+    public boolean equals(Object other){
+        if(!(other instanceof Bid))
+            return false;
+        Bid ob = (Bid)other;
+        return ob.getAmount().equals(amount);
+    }
+
 }
