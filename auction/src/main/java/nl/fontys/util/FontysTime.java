@@ -1,10 +1,13 @@
 package nl.fontys.util;
 
 import javax.persistence.Embeddable;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import java.sql.Time;
 import java.util.TimeZone;
 
 @Embeddable
+@XmlAccessorType(XmlAccessType.FIELD)
 public class FontysTime {
 	private long seconds;
 

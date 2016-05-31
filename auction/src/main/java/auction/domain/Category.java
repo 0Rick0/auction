@@ -4,8 +4,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 
 @Entity
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Category {
 
     //when multiple categories are persisted, errors occur when using a table. using the identity it get the id automaticaly from the tabel.

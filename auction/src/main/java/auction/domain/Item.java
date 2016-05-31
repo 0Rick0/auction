@@ -3,6 +3,8 @@ package auction.domain;
 import nl.fontys.util.Money;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 
 @Entity
 @NamedQueries({
@@ -12,6 +14,7 @@ import javax.persistence.*;
         @NamedQuery(name = "Item.ByDescription",    query = "SELECT i FROM Item i WHERE i.description LIKE :desc"),
         @NamedQuery(name = "Item.DeleteId",         query = "DELETE FROM Item i WHERE i.id = :id")
 })
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Item implements Comparable {
 
     @Id

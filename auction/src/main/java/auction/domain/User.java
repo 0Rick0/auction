@@ -1,6 +1,8 @@
 package auction.domain;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 
 @Entity
 @NamedQueries({
@@ -13,6 +15,7 @@ import javax.persistence.*;
     @NamedQuery(name = "User.DeleteAll",
         query = "DELETE FROM User u")
 })
+@XmlAccessorType(XmlAccessType.FIELD)
 public class User /*implements Comparable*/ {
 
     @Id @GeneratedValue

@@ -4,8 +4,11 @@ import nl.fontys.util.FontysTime;
 import nl.fontys.util.Money;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 
 @Entity
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Bid {
 
     @Id
